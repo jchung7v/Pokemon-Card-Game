@@ -54,6 +54,7 @@ p {
   width: 180px;
   height: 260px;
   perspective: 1000px;
+  margin: 10px;
 }
 
 .flip-card-inner {
@@ -88,7 +89,10 @@ p {
 }
 
 .flip-card-back {
-  background-color: olive;
+  background-image: linear-gradient(to bottom right, red, yellow);
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: rotateY(180deg);
 }
