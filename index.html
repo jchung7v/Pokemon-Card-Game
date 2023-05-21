@@ -22,27 +22,35 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="d-flex flex-column justify-content-center align-items-center">
-      <h1 class="text-center">Pokemon Card Game</h1>
+    <div class="d-flex flex-column justify-content-start align-items-start ms-3">
+      <h1 class="text-center">Pokemon Card Memory Game</h1>
       <div class="setting-btn-container d-flex flex-row justify-content-center">
+        <h3>Quick Start(easy):</h3>
+        <button type="button" class="start-btn mb-3 mx-2">Start</button>
         <button type="button" class="reset-btn mb-3">Reset</button>
       </div>
 
-      <div class="mode-btn-container d-flex flex-row justify-content-center mb-2">
+      <div class="mode-btn-container d-flex flex-row justify-content-center">
         <h3>Choose Your Level:</h3>
-        <button type="button" class="button easy-btn ms-2">Easy</button>
-        <button type="button" class="button med-btn">Medium</button>
-        <button type="button" class="button hard-btn">Hard</button>
+        <button type="button" class="easy-btn mb-3 ms-2 me-1">Easy</button>
+        <button type="button" class="med-btn mb-3 mx-1">Medium</button>
+        <button type="button" class="hard-btn mb-3 ms-1">Hard</button>
+      </div>
+
+      <div class="theme-btn-container d-flex flex-row justify-content-center">
+        <h3>Choose Your Theme:</h3>
+        <button type="button" class="dark-btn mb-3 mx-2">Dark</button>
+        <button type="button" class="light-btn mb-3">Light</button>
       </div>
       
-      <div class="numbers-container d-flex flex-column align-items-center">
+      <div class="numbers-container d-flex flex-column align-items-start">
         <p>Total Number of Pairs: <span class="stat" id="total-pairs"></span></p>
         <p>Number of Matches: <span class="stat" id="matches"></span></p>
         <p>Number of Pair Left: <span class="stat" id="pairs-left"></span></p>
         <p>Number of Clicks: <span class="stat" id="clicks"></span></p>
         <p>
-          You got <span id="given-time"></span>.
-          <span id="time-left"> seconds passed!</span>
+          You got <span id="given-time"></span> seconds.
+          <span id="time-passed"></span> seconds passed!
         </p>
       </div>
 
