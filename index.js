@@ -11,12 +11,16 @@ let totalPairs = 0;
 let pairsLeft = 0;
 let selectedLevel = 0;
 let seconds = 0;
+let numTag = 0;
 let intervalId;
+
 
 let selectedCardArray = [];
 let pokemons = [];
 let innerResponse = [];
 const rand = [];
+
+let isChecking = false;
 
 // data fetch
 const start = async () => {
@@ -30,46 +34,63 @@ const start = async () => {
   $('.start-btn').on('click', async function(e) {
     $('.flip-card-container').empty();
     displayCards(pokemons, 1);
+    resetTime(intervalId);
     intervalId = setInterval(function() {
-        updateSeconds(5);
+        updateSeconds(easyLevelGivenSeconds);
+        powerUp();
     }, 1000);
   })  
   $('.easy-btn').on('click', async function (e) {
     $('.flip-card-container').empty();
     displayCards(pokemons, 1);
+    resetTime(intervalId);
     intervalId = setInterval(function() {
         updateSeconds(easyLevelGivenSeconds);
+        powerUp();
     }, 1000);
   })
   $('.med-btn').on('click', async function (e) {
     $('.flip-card-container').empty();
     displayCards(pokemons, 2);
+    resetTime(intervalId);
     intervalId = setInterval(function() {
         updateSeconds(medLevelGivenSeconds);
+        powerUp();
     }, 1000);
   })
   $('.hard-btn').on('click', async function (e) {
     $('.flip-card-container').empty();
     displayCards(pokemons, 3);
+    resetTime(intervalId);
     intervalId = setInterval(function() {
         updateSeconds(hardLevelGivenSeconds);
+        powerUp();
     }, 1000);
   })
   $('.reset-btn').on('click', async function (e) {
     $('.flip-card-container').empty();
     resetTime(intervalId);
   })
-
+  $('.dark-btn').on('click', async function (e) {
+    $('.flip-card-container').addClass('dark-mode');
+  });
+  $('.light-btn').on('click', async function (e) {
+    $('.flip-card-container').removeClass('dark-mode');
+  });
+  
   // play game
   $('body').on('click', '.flip-card', async function (e) {
-    clickCounter ++;
+    if (isChecking) return;
+      clickCounter ++;
+      $(this).find('.flip-card-inner').addClass('flipped')
+      let cardId = $(this).find('.pokemonCard').attr('pokemon-id');
+      let numTag = $(this).find('.pokemonCard').attr('num-tag');
+      selectedCardArray.push({ id:cardId, element:this, tag:numTag });
+      console.log(selectedCardArray);
 
-    $(this).find('.flip-card-inner').addClass('flipped')
-    let cardId = $(this).find('.pokemonCard').attr('pokemon-id');
-    selectedCardArray.push({ id:cardId, element:this });
-
-    if (selectedCardArray.length == 2) {
-        if (selectedCardArray[0].id === selectedCardArray[1].id) {
+      if (selectedCardArray.length == 2) {
+        isChecking = true;
+        if (selectedCardArray[0].id === selectedCardArray[1].id && selectedCardArray[0].tag !== selectedCardArray[1].tag) {
             $(selectedCardArray[0].element).find('.flip-card-inner').addClass('matched');
             $(selectedCardArray[1].element).find('.flip-card-inner').addClass('matched');
             console.log("Match!")
@@ -79,27 +100,27 @@ const start = async () => {
             matchCounter ++;
             pairsLeft = totalPairs - matchCounter;
             console.log(matchCounter);
-
+            isChecking = false;
         } else {
             setTimeout(() => {
                 $('.flip-card-inner').not('.matched').removeClass('flipped');
                 selectedCardArray = [];
+                isChecking = false;
             }, 1000);
         }
-    }
-    
-    $('#matches').text(matchCounter)
-    $('#clicks').text(clickCounter)
-    $('#pairs-left').text(pairsLeft)
-
-    if (matchCounter == totalPairs) {
-        setTimeout(() => {
-            window.alert("Congratulations, You Are The Winner");
-        }, 1000);
-    }
-  });
+        }
+        $('#matches').text(matchCounter)
+        $('#clicks').text(clickCounter)
+        $('#pairs-left').text(pairsLeft)
+        
+        if (matchCounter == totalPairs) {
+            setTimeout(() => {
+                window.alert("Congratulations, You Are The Winner");
+            }, 1000);
+            resetTime(intervalId);
+        }
+    });
 };
-
 
 // time ticking only seconds
 function updateSeconds(givenSeconds) {
@@ -107,7 +128,6 @@ function updateSeconds(givenSeconds) {
         $('#given-time').text(givenSeconds);
         seconds++;
         $('#time-passed').text(seconds);
-        console.log(seconds)
     } else {
         stopSeconds(intervalId);
     }
@@ -121,14 +141,29 @@ function stopSeconds(intervalId) {
 
 function resetTime(intervalId) {
     clearInterval(intervalId);
-    seconds=0;        
+    seconds=0;
     $('#time-passed').text("0");
     $('#given-time').text("");
 }
 
+// power up function (called every 30 seconds)
+function powerUp() {
+    if (seconds >= 10 && seconds % 30 == 0) {
+        selectedCardArray = [];
+        window.alert("Power Up Time!");
+        $('.flip-card-inner').addClass('flipped');
+        setTimeout(() => {
+            $('.flip-card-inner').not('.matched').removeClass('flipped');
+        }, 3000)
+    }
+}
 
-
+// reset button
 $('.reset-btn').on('click', async function (e) {
+    totalPairs = 0;
+    matchCounter = 0;
+    pairsLeft = 0;
+    clickCounter = 0;
     $('.flip-card-container').empty();
     $('.flip-card-inner').removeClass('matched');
     $('.stat').empty();
@@ -164,8 +199,9 @@ async function displayCards(pokemons, level) {
         let res = await axios.get(`${pokemons[rand].url}`);
         let thisPokemon = res.data;
         console.log(thisPokemon);
-
+        
         for(let j = 0; j < 2; j++){
+            numTag ++;
             cards.push(`
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -173,7 +209,7 @@ async function displayCards(pokemons, level) {
                             <img src="./public/pokeball.png" alt="Poketball" style="width: 100px; height: 100px"/>
                         </div>
                         <div class="flip-card-back">
-                            <div class="pokemonCard" pokemon-id=${thisPokemon.id} pokemon-name=${thisPokemon.name}>
+                            <div class="pokemonCard" pokemon-id=${thisPokemon.id} pokemon-name=${thisPokemon.name} num-tag=${numTag}>
                             <img src="${thisPokemon.sprites.front_default}" alt="${thisPokemon.name}" style="width: 200px; height: 200px"/>
                             <h3 style="color: black">${thisPokemon.name}</h3>
                             </div>

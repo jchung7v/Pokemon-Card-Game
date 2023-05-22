@@ -22,28 +22,28 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="d-flex flex-column justify-content-start align-items-start ms-3">
+    <div class="d-flex flex-column align-items-center ms-3">
       <h1 class="text-center">Pokemon Card Memory Game</h1>
-      <div class="setting-btn-container d-flex flex-row justify-content-center">
+      <div class="setting-btn-container d-flex flex-row">
         <h3>Quick Start(easy):</h3>
         <button type="button" class="start-btn mb-3 mx-2">Start</button>
         <button type="button" class="reset-btn mb-3">Reset</button>
       </div>
 
-      <div class="mode-btn-container d-flex flex-row justify-content-center">
+      <div class="mode-btn-container d-flex flex-row">
         <h3>Choose Your Level:</h3>
         <button type="button" class="easy-btn mb-3 ms-2 me-1">Easy</button>
         <button type="button" class="med-btn mb-3 mx-1">Medium</button>
         <button type="button" class="hard-btn mb-3 ms-1">Hard</button>
       </div>
 
-      <div class="theme-btn-container d-flex flex-row justify-content-center">
+      <div class="theme-btn-container d-flex flex-row">
         <h3>Choose Your Theme:</h3>
         <button type="button" class="dark-btn mb-3 mx-2">Dark</button>
         <button type="button" class="light-btn mb-3">Light</button>
       </div>
       
-      <div class="numbers-container d-flex flex-column align-items-start">
+      <div class="numbers-container d-flex flex-column align-items-center">
         <p>Total Number of Pairs: <span class="stat" id="total-pairs"></span></p>
         <p>Number of Matches: <span class="stat" id="matches"></span></p>
         <p>Number of Pair Left: <span class="stat" id="pairs-left"></span></p>
@@ -55,7 +55,7 @@
       </div>
 
       <div
-        class="flip-card-container d-flex flex-wrap justify-content-center align-items-center w-75 p-5"
+        class="flip-card-container d-flex flex-wrap justify-content-center align-items-center w-75 h-auto p-5 border border-secondary"
       ></div>
 
     </div>
