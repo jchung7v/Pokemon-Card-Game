@@ -10,5 +10,6 @@
   </p>
 </div>
 
-<img width="1200" alt="Screenshot_Pokemon_01" src="https://github.com/jchung7v/comp2537_assignment04/assets/111412548/feb55e21-4e76-4fba-a3d0-3e3148a7dd55">
-<img width="1200" alt="Screenshot_Pokemon_02" src="https://github.com/jchung7v/comp2537_assignment04/assets/111412548/f0133c14-70c0-4429-883b-34750646601c">
+<img width="1200" alt="Screenshot_Pokemon_01" src="./public/Screenshot_Pokemon_01.png">
+<img width="1200" alt="Screenshot_Pokemon_02" src="./public/Screenshot_Pokemon_02.png">
+<img width="1200" alt="Screenshot_Pokemon_02" src="./public/Screenshot_Pokemon_03.png">
