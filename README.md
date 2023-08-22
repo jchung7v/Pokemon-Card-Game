@@ -12,4 +12,4 @@
 
 <img width="1200" alt="Screenshot_Pokemon_01" src="./public/Screenshot_Pokemon_01.png">
 <img width="1200" alt="Screenshot_Pokemon_02" src="./public/Screenshot_Pokemon_02.png">
-<img width="1200" alt="Screenshot_Pokemon_02" src="./public/Screenshot_Pokemon_03.png">
+<img width="1200" alt="Screenshot_Pokemon_03" src="./public/Screenshot_Pokemon_03.png">
